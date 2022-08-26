@@ -41,6 +41,7 @@ nav h1 {
 .gameboard {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   width: 600px;
   height: 600px;
 }
