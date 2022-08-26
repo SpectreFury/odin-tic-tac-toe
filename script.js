@@ -8,28 +8,81 @@ const gameBoard = (function () {
       cell.textContent = board[i];
     });
   }
+  const gameOverConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
 
-  function gameOverCheck(gameOverConditions) {
-    // Horizontal Conditions
-    if (board[0] === board[1] && board[1] === board[2]) {
+  function gameOverCheck() {
+    if (
+      board[0] === board[1] &&
+      board[1] === board[2] &&
+      board[0] !== "" &&
+      board[1] !== "" &&
+      board[2] !== ""
+    ) {
       return true;
-    } else if (board[3] === board[4] && board[4] === board[5]) {
+    } else if (
+      board[3] === board[4] &&
+      board[4] === board[5] &&
+      board[3] !== "" &&
+      board[4] !== "" &&
+      board[5] !== ""
+    ) {
       return true;
-    } else if (board[6] === board[7] && board[7] === board[8]) {
+    } else if (
+      board[6] === board[7] &&
+      board[7] === board[8] &&
+      board[6] !== "" &&
+      board[7] !== "" &&
+      board[8] !== ""
+    ) {
       return true;
-    }
-    // Verticle Conditions
-    else if (board[0] === board[3] && board[3] === board[6]) {
+    } else if (
+      board[0] === board[3] &&
+      board[3] === board[6] &&
+      board[0] !== "" &&
+      board[3] !== "" &&
+      board[6] !== ""
+    ) {
       return true;
-    } else if (board[1] === board[4] && board[4] === board[7]) {
+    } else if (
+      board[1] === board[4] &&
+      board[4] === board[7] &&
+      board[1] !== "" &&
+      board[4] !== "" &&
+      board[7] !== ""
+    ) {
       return true;
-    } else if (board[2] === board[5] && board[5] === board[8]) {
+    } else if (
+      board[2] === board[5] &&
+      board[5] === board[8] &&
+      board[2] !== "" &&
+      board[5] !== "" &&
+      board[8] !== ""
+    ) {
       return true;
-    }
-    // Diagonal Conditions
-    else if (board[0] === board[4] && board[4] === board[8]) {
+    } else if (
+      board[0] === board[4] &&
+      board[4] === board[8] &&
+      board[0] !== "" &&
+      board[4] !== "" &&
+      board[8] !== ""
+    ) {
       return true;
-    } else if (board[2] === board[4] && board[4] === board[6]) {
+    } else if (
+      board[2] === board[4] &&
+      board[4] === board[6] &&
+      board[2] !== "" &&
+      board[4] !== "" &&
+      board[6] !== ""
+    ) {
       return true;
     } else {
       return false;
@@ -74,6 +127,7 @@ const gameBoard = (function () {
     printBoard,
     addMarkToArray,
     gameOverCheck,
+    gameOverConditions,
   };
 })();
 
@@ -103,9 +157,9 @@ const gameLoop = (function () {
         const location = e.target;
         gameBoard.addMarkToArray(location, mark);
       }
-      // Check if game over.
-      if (gameBoard.gameOverCheck) {
-        console.log("Game Over Fella tsk tsk");
+      // Game Over Check
+      if (gameBoard.gameOverCheck()) {
+        console.log("Cool!");
       }
     });
   });
