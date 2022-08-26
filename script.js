@@ -134,6 +134,7 @@ const gameBoard = (function () {
 const gameLoop = (function () {
   const playerOne = playerFactory("X");
   const playerTwo = playerFactory("O");
+  let counter = 0;
 
   function placeMarkAndInvertTurn(currentPlayer, otherPlayer, e) {
     currentPlayer.placeMark(e);
@@ -146,6 +147,7 @@ const gameLoop = (function () {
       if (e.target.textContent) {
         return;
       }
+      counter++;
       if (playerOne.hasTurn) {
         placeMarkAndInvertTurn(playerOne, playerTwo, e);
         const mark = playerOne.mark;
@@ -157,9 +159,12 @@ const gameLoop = (function () {
         const location = e.target;
         gameBoard.addMarkToArray(location, mark);
       }
+
+      console.log("Current Counter:", counter);
+
       // Game Over Check
       if (gameBoard.gameOverCheck()) {
-        console.log("Cool!");
+      } else if (!gameBoard.gameOverCheck() && counter === 9) {
       }
     });
   });
