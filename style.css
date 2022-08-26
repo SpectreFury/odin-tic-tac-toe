@@ -14,6 +14,49 @@ body {
   color: #fff;
 }
 
+footer {
+  width: 100%;
+  height: calc(100vh - (100vh - 70px));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer .legal-text {
+  color: lightgrey;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  gap: 100px;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal h1 {
+  font-size: 4rem;
+  font-weight: 700;
+}
+.modal button {
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 10px 30px;
+  background-color: #818181;
+}
+
+.modal button:hover {
+  background-color: #fff;
+}
+
 nav {
   height: 100px;
   display: flex;
@@ -31,7 +74,7 @@ nav h1 {
 .container {
   width: 90%;
   max-width: 1400px;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 250px);
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -48,7 +91,7 @@ nav h1 {
 
 .gameboard .cell {
   border: 2px solid #fff;
-  font-size: 4rem;
+  font-size: 6rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,4 +127,10 @@ nav h1 {
 }
 .gameboard .cell.middle-right {
   border-right: none;
+}
+
+/* Modal hide and show */
+
+.visible {
+  display: flex;
 }

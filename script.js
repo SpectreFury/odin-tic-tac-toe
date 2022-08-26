@@ -1,7 +1,14 @@
 const cells = document.querySelectorAll(".cell"); // Two function seems to use it so it better be global.
+const restartBtn = document.querySelector(".btn-restart");
+const gameOverText = document.querySelector(".text-gameover");
+const modal = document.querySelector(".modal");
 
 const gameBoard = (function () {
-  const board = ["", "", "", "", "", "", "", "", ""];
+  let board = ["", "", "", "", "", "", "", "", ""];
+
+  function resetBoard() {
+    board = ["", "", "", "", "", "", "", "", ""];
+  }
 
   function printBoard() {
     cells.forEach((cell, i) => {
@@ -92,33 +99,23 @@ const gameBoard = (function () {
   function addMarkToArray(location, mark) {
     if (location.classList.contains("top-left")) {
       board[0] = mark;
-      console.log(board);
     } else if (location.classList.contains("top-middle")) {
       board[1] = mark;
-      console.log(board);
     } else if (location.classList.contains("top-right")) {
       board[2] = mark;
-      console.log(board);
     } else if (location.classList.contains("middle-left")) {
       board[3] = mark;
-      console.log(board);
     } else if (location.classList.contains("middle")) {
       board[4] = mark;
-      console.log(board);
     } else if (location.classList.contains("middle-right")) {
       board[5] = mark;
-      console.log(board);
     } else if (location.classList.contains("bottom-left")) {
       board[6] = mark;
-      console.log(board);
     } else if (location.classList.contains("bottom-middle")) {
       board[7] = mark;
-      console.log(board);
     } else if (location.classList.contains("bottom-right")) {
       board[8] = mark;
-      console.log(board);
     } else {
-      console.log("ERROR");
     }
   }
 
@@ -128,6 +125,7 @@ const gameBoard = (function () {
     addMarkToArray,
     gameOverCheck,
     gameOverConditions,
+    resetBoard,
   };
 })();
 
@@ -135,6 +133,15 @@ const gameLoop = (function () {
   const playerOne = playerFactory("X");
   const playerTwo = playerFactory("O");
   let counter = 0;
+
+  restartBtn.addEventListener("click", () => {
+    counter = 0;
+    gameBoard.resetBoard();
+    cells.forEach((cell) => {
+      cell.textContent = "";
+    });
+    removeModal();
+  });
 
   function placeMarkAndInvertTurn(currentPlayer, otherPlayer, e) {
     currentPlayer.placeMark(e);
@@ -160,11 +167,15 @@ const gameLoop = (function () {
         gameBoard.addMarkToArray(location, mark);
       }
 
-      console.log("Current Counter:", counter);
-
       // Game Over Check
       if (gameBoard.gameOverCheck()) {
+        gameOverText.textContent = "You won!";
+        showModal();
       } else if (!gameBoard.gameOverCheck() && counter === 9) {
+        gameOverText.textContent = "It's a draw!";
+        showModal();
+      } else {
+        return;
       }
     });
   });
@@ -183,4 +194,12 @@ function playerFactory(mark) {
     placeMark,
     hasTurn,
   };
+}
+
+function showModal() {
+  modal.classList.add("visible");
+}
+
+function removeModal() {
+  modal.classList.remove("visible");
 }
